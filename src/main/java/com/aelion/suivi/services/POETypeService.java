@@ -26,8 +26,7 @@ public class POETypeService implements ICrud<POETypeEntity>{
 	
 	@Override
 	public POETypeEntity add(POETypeEntity t) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.poeTypeRepository.save(t);
 	}
 
 	@Override
@@ -38,13 +37,13 @@ public class POETypeService implements ICrud<POETypeEntity>{
 
 	@Override
 	public void update(POETypeEntity t) {
-		// TODO Auto-generated method stub
+		this.poeTypeRepository.save(t);
 		
 	}
 
 	@Override
 	public void delete(POETypeEntity t) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
