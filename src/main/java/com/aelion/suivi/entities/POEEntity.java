@@ -4,11 +4,14 @@
 package com.aelion.suivi.entities;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -24,6 +27,40 @@ public class POEEntity {
 	private String name;
 	private Date beginDate;
 	private Date endDate;
+	@ManyToOne //many PoeEntity to one POETypeEntity
+	//@JoinColumn() //annotation si on besoin de faire la jointure
+	private POETypeEntity poeType;
+	@ManyToMany
+	private List<InternEntity> interns;
+	
+	/**
+	 * @return the interns
+	 */
+	public List<InternEntity> getInterns() {
+		return interns;
+	}
+
+	/**
+	 * @param interns the interns to set
+	 */
+	public void setInterns(List<InternEntity> interns) {
+		this.interns = interns;
+	}
+
+	/**
+	 * @return the poeType
+	 */
+	public POETypeEntity getPoeType() {
+		return poeType;
+	}
+
+	/**
+	 * @param poeType the poeType to set
+	 */
+	public void setPoeType(POETypeEntity poeType) {
+		this.poeType = poeType;
+	}
+
 	/**
 	 * @return the id
 	 */
