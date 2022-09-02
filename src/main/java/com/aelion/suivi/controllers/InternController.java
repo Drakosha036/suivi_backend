@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.aelion.suivi.dto.InternShortListDto;
@@ -67,7 +68,7 @@ public class InternController {
 			return ResponseEntity.ok(oInternEntity.get());
 		}
 		//si pas trouve renvoyer 404 not found
-		return (ResponseEntity<?>) ResponseEntity.notFound().build();
+		return  ResponseEntity.notFound().build();
 	}
 	
 	/**
@@ -113,4 +114,15 @@ public class InternController {
 		System.out.println(firstName);
 		return this.internService.findByFirstName(firstName);
 	}
+	
+	@GetMapping("/byemail")
+	public ResponseEntity<?> internByMail(@RequestParam() String email) {
+		Optional<InternEntity> entity = this.internService.internByMail(email);
+		if (entity.isPresent()) {
+			return ResponseEntity.ok(entity.get());
+		}
+		return  ResponseEntity.notFound().build();
+	}
+	
+	
 }

@@ -4,8 +4,11 @@
 package com.aelion.suivi.repositories;
 
 import java.util.List;
+import java.util.Optional;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 
 import com.aelion.suivi.entities.InternEntity;
 
@@ -35,7 +38,14 @@ public interface InternRepository extends CrudRepository<InternEntity, Long> {
 	
 	//findByQuelquechose doit respecter l'attribut dans InternEntity
 	//findBy on peut faire sur n'import quelle colonne de tableau
+	//tout le finBy retourne le List
 	public List<InternEntity> findByName(String name);
 	public List<InternEntity> findByFirstName(String firstName);
+
+	//parametre nomme: ':email'
+	@Query("SELECT i FROM InternEntity i WHERE i.email = :email") //passe JPQL requete
+	//@Param("email") lie le nom de Param et le nom de QL
+	public Optional<InternEntity> internByMail(@Param("email") String email); //parce que mail est unique; il n'y a pas de List<InternEntity>
+	
 	
 }

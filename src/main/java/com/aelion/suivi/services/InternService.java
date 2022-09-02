@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.aelion.suivi.dto.InternShortListDto;
@@ -99,5 +100,19 @@ public class InternService implements ICrud<InternEntity> {
 	public List<InternEntity> findByFirstName(String firstName) {
 		return this.repository.findByFirstName(firstName);
 	}
+	
+	public Optional<InternEntity> internByMail(String email) {
+		return this.repository.internByMail(email);
+	}
+	
+	/*
+	 * public ResponseEntity<?> internByMail(String email) {
+	 * InternEntity entity = this.internService.internByMail(email);
+		if (entity == null) {
+			return ResponseEntity.notFound().build();;
+		}
+		return  ResponseEntity.ok(entity);
+	 * }
+	 */
 
 }
