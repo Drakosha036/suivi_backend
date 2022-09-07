@@ -6,6 +6,10 @@ package com.aelion.suivi.services;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.http.ResponseEntity;
+
+import com.aelion.suivi.services.exception.NotPermittedException;
+
 /**
  * @author Aelion
  *
@@ -17,8 +21,8 @@ public interface ICrud<T> {
 	//ajouter un tableau d'elements ts de type T[]
 	public T[] add(T[] ts);
 	public void update(T t);
-	public void delete(T t);
-	public void delete(Long id) throws Exception;
+	public ResponseEntity<?> delete(T t) throws NotPermittedException;
+	public ResponseEntity<?> delete(Long id) throws Exception;
 	//returner la list des objets de type T
 	public List<T> findAll();
 	//Optional return true si l'objet est trouve et false si l'objet n'existe pas

@@ -8,6 +8,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,11 +36,13 @@ public class POEController {
 	
 	
 	@GetMapping()
+	@CrossOrigin
 	public List<POEEntity> getAll() {
 		return this.poeService.findAll();	
 	}
 	
 	@GetMapping("/shortpoe")
+	@CrossOrigin
 	public List<POEShortListDto> shortPOE() {
 		return this.poeService.shortListPOE();
 	}
@@ -60,6 +63,7 @@ public class POEController {
 	*/
 	
 	@GetMapping("/{id}")
+	@CrossOrigin
 	public ResponseEntity<?> findOne(@PathVariable Long id) throws Exception {
 		try { 
 			//on essaye d'executer ce code

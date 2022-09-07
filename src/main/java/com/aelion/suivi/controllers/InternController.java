@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.aelion.suivi.dto.InternShortListDto;
 import com.aelion.suivi.entities.InternEntity;
 import com.aelion.suivi.services.InternService;
+import com.aelion.suivi.services.exception.NotPermittedException;
 
 /**
  * @author Aelion
@@ -86,9 +87,14 @@ public class InternController {
 	@CrossOrigin
 	//ResponseEntity<?> on sait pas quel type on va renvoyer
 	public ResponseEntity<?> delete(@RequestBody InternEntity intern) { //n'oublier pas @RequestBody
-		this.internService.delete(intern);
+		try {
+			this.internService.delete(intern);
+			return ResponseEntity.noContent().build();
+		} catch (NotPermittedException e) {
+			return e.send();
+		}
 		//utilise le methode static de ResponseEntity, il faut le build pour reconstuire l'objet
-		return ResponseEntity.noContent().build(); //pour RESTFul il faut renvoyer le status
+		//return ResponseEntity.noContent().build(); //pour RESTFul il faut renvoyer le status
 	}
 	
 	@PutMapping()

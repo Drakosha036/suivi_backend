@@ -8,11 +8,13 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.aelion.suivi.dto.InternShortListDto;
 import com.aelion.suivi.entities.InternEntity;
 import com.aelion.suivi.repositories.InternRepository;
+import com.aelion.suivi.services.exception.NotPermittedException;
 
 /**
  * @author Aelion
@@ -47,8 +49,13 @@ public class InternService implements ICrud<InternEntity> {
 	}
 
 	@Override
-	public void delete(InternEntity t) {
-		this.repository.delete(t);
+	public ResponseEntity<?> delete(InternEntity t) throws NotPermittedException {
+		try {
+			this.repository.delete(t);
+			return ResponseEntity.noContent().build();
+		} catch (Exception e) {
+			throw new NotPermittedException(e.getMessage());
+		}
 	}
 
 	@Override
@@ -64,7 +71,13 @@ public class InternService implements ICrud<InternEntity> {
 	}
 
 	@Override
-	public void delete(Long id) {
+	public ResponseEntity<?> delete(Long id) throws NotPermittedException {
+		try {
+			this.repository.deleteById(id);
+			return ResponseEntity.noContent().build();
+		} catch (Exception e) {
+			throw new NotPermittedException("Intern with id : " + id + " cannot be deleted" );
+		}
 	}
 	
 	/**
