@@ -3,6 +3,7 @@
  */
 package com.aelion.suivi.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -29,7 +30,7 @@ public class POETypeEntity {
 	
 	//relation enverse a utiliser avec grand precausion
 	@OneToMany()
-	private List<POEEntity> poes;
+	private List<POEEntity> poes = new ArrayList<>(); //instancier pour que poes devient un objet, pour eviter NUllPointerException 
 
 	/**
 	 * @return the poes

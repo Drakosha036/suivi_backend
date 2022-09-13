@@ -3,6 +3,8 @@
  */
 package com.aelion.suivi.entities;
 
+import java.util.ArrayList;
+import javax.persistence.JoinColumn;
 import java.util.Date;
 import java.util.List;
 
@@ -10,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -31,7 +34,10 @@ public class POEEntity {
 	//@JoinColumn() //annotation si on besoin de faire la jointure
 	private POETypeEntity poeType;
 	@ManyToMany
-	private List<InternEntity> interns;
+	@JoinTable(name="interns_to_poes", 
+	joinColumns = @JoinColumn(name="poe_id"), 
+	inverseJoinColumns = @JoinColumn(name = "intern_id"))
+	private List<InternEntity> interns = new ArrayList<>();
 	
 	/**
 	 * @return the interns

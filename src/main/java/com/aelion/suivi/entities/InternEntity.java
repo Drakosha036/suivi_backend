@@ -29,7 +29,7 @@ public class InternEntity {
 	private String firstName;
 	private Date birthdate;
 	private String phoneNumber;
-	@Column(unique=true) //rendre colonne unique
+	@Column(unique=true, nullable = false) //rendre colonne unique, l'adresse email non null
 	private String email;
 	private String address;
 	/**

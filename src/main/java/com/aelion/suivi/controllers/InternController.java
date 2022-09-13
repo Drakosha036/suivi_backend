@@ -92,7 +92,11 @@ public class InternController {
 			return ResponseEntity.noContent().build();
 		} catch (NotPermittedException e) {
 			return e.send();
-		}
+			//System.out.println("Never");
+		} //deuxieme startegy
+		//finally {
+			//return ResponseEntity.noContent().build();
+		//}
 		//utilise le methode static de ResponseEntity, il faut le build pour reconstuire l'objet
 		//return ResponseEntity.noContent().build(); //pour RESTFul il faut renvoyer le status
 	}
