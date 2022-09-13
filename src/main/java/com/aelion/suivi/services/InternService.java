@@ -27,14 +27,14 @@ public class InternService implements ICrud<InternEntity> {
 	//private FakeInternRepository internRepository = new FakeInternRepository();
 	
 	@Autowired //DI
-	private InternRepository repository; //spring instancie l'objet au moment d'execution
+	private InternRepository internRepository; //spring instancie l'objet au moment d'execution
 	
 	/**
 	 * INSERT INTO intern (name, firstname, ..., address) VALUES (...)
 	 */
 	@Override
 	public InternEntity add(InternEntity t) {
-		return this.repository.save(t);
+		return this.internRepository.save(t);
 	}
 
 	@Override
@@ -45,13 +45,13 @@ public class InternService implements ICrud<InternEntity> {
 
 	@Override
 	public void update(InternEntity t) {		
-		this.repository.save(t);
+		this.internRepository.save(t);
 	}
 
 	@Override
 	public ResponseEntity<?> delete(InternEntity t) throws NotPermittedException {
 		try {
-			this.repository.delete(t);
+			this.internRepository.delete(t);
 			return ResponseEntity.noContent().build();
 		} catch (Exception e) {
 			throw new NotPermittedException(e.getMessage());
@@ -61,19 +61,19 @@ public class InternService implements ICrud<InternEntity> {
 	@Override
 	public List<InternEntity> findAll() {
 		// findAll() retourne Iterable, donc il faut cast/convertir pour que ca devient List 
-		return (List<InternEntity>) this.repository.findAll();
+		return (List<InternEntity>) this.internRepository.findAll();
 	}
 
 	//appelle le repository pour le methode
 	@Override
 	public Optional<InternEntity> findOne(Long id) {
-		return this.repository.findById(id);
+		return this.internRepository.findById(id);
 	}
 
 	@Override
 	public ResponseEntity<?> delete(Long id) throws NotPermittedException {
 		try {
-			this.repository.deleteById(id);
+			this.internRepository.deleteById(id);
 			return ResponseEntity.noContent().build();
 		} catch (Exception e) {
 			throw new NotPermittedException("Intern with id : " + id + " cannot be deleted" );
@@ -87,7 +87,7 @@ public class InternService implements ICrud<InternEntity> {
 	public List<InternShortListDto> shortList() {
 		//methode find all retourne un Iterable, donc on le cast en ArrayList
 		// et on stock le resultat dans une variable itEntity de type ArrayList de InternEntity
-		ArrayList<InternEntity> itEntity = (ArrayList<InternEntity>) this.repository.findAll();
+		ArrayList<InternEntity> itEntity = (ArrayList<InternEntity>) this.internRepository.findAll();
 		
 		//Need to map InternEntity to InternShortListDto
 		ArrayList<InternShortListDto> dto = new ArrayList<>();
@@ -102,19 +102,19 @@ public class InternService implements ICrud<InternEntity> {
 	}
 	
 	public Iterable<InternEntity> internsAsIterable() {
-		return this.repository.findAll();
+		return this.internRepository.findAll();
 	}
 	
 	public List<InternEntity> findByName(String name) {
-		return this.repository.findByName(name);
+		return this.internRepository.findByName(name);
 	}
 	
 	public List<InternEntity> findByFirstName(String firstName) {
-		return this.repository.findByFirstName(firstName);
+		return this.internRepository.findByFirstName(firstName);
 	}
 	
 	public Optional<InternEntity> internByMail(String email) {
-		return this.repository.internByMail(email);
+		return this.internRepository.internByMail(email);
 	}
 	
 	/*

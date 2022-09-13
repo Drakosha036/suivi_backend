@@ -7,10 +7,12 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.aelion.suivi.entities.POETypeEntity;
 import com.aelion.suivi.repositories.POETypeRepository;
+import com.aelion.suivi.services.exception.NotPermittedException;
 
 
 
@@ -41,17 +43,7 @@ public class POETypeService implements ICrud<POETypeEntity>{
 		
 	}
 
-	@Override
-	public void delete(POETypeEntity t) {
-		
-		
-	}
-
-	@Override
-	public void delete(Long id) throws Exception {
-		// TODO Auto-generated method stub
-		
-	}
+	
 
 	@Override
 	public List<POETypeEntity> findAll() {
@@ -63,6 +55,18 @@ public class POETypeService implements ICrud<POETypeEntity>{
 	public Optional<POETypeEntity> findOne(Long id) {
 		// TODO Auto-generated method stub
 		return this.poeTypeRepository.findById(id.intValue()); //intValue convertit long en int
+	}
+
+	@Override
+	public ResponseEntity<?> delete(POETypeEntity t) throws NotPermittedException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ResponseEntity<?> delete(Long id) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

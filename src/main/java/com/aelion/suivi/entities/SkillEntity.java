@@ -3,11 +3,15 @@
  */
 package com.aelion.suivi.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -15,8 +19,8 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(name="skills")
-public class SkillsEntity {
+@Table(name="skill")
+public class SkillEntity {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -24,6 +28,10 @@ public class SkillsEntity {
 	@Column(unique=true, nullable=false) //pour interdir que le title soit NULL
 	private String title;
 	private String description;
+	
+	//fait reference a un attribut skill de InternEvaluation
+	//@OneToMany(mappedBy="skill") //recup les evaluation de cette competence
+	//private List<InternEvaluationEntity> evaluations = new ArrayList<>();
 	
 	/**
 	 * @return the title

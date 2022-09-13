@@ -10,8 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.aelion.suivi.entities.SkillEntity;
-import com.aelion.suivi.repositories.SkillsRepository;
+import com.aelion.suivi.entities.InternEvaluationEntity;
+import com.aelion.suivi.repositories.InternEvaluationRepository;
 import com.aelion.suivi.services.exception.NotPermittedException;
 
 /**
@@ -19,31 +19,31 @@ import com.aelion.suivi.services.exception.NotPermittedException;
  *
  */
 @Service
-public class SkillsService implements ICrud<SkillEntity>{
+public class InternEvaluationService implements ICrud<InternEvaluationEntity>{
 
 	@Autowired
-	private SkillsRepository skillRepository;
+	private InternEvaluationRepository internEvaluationRepository;
 	
 	@Override
-	public SkillEntity add(SkillEntity t) {
+	public InternEvaluationEntity add(InternEvaluationEntity t) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public SkillEntity[] add(SkillEntity[] ts) {
+	public InternEvaluationEntity[] add(InternEvaluationEntity[] ts) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void update(SkillEntity t) {
+	public void update(InternEvaluationEntity t) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public ResponseEntity<?> delete(SkillEntity t) throws NotPermittedException {
+	public ResponseEntity<?> delete(InternEvaluationEntity t) throws NotPermittedException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -55,13 +55,13 @@ public class SkillsService implements ICrud<SkillEntity>{
 	}
 
 	@Override
-	public List<SkillEntity> findAll() {
+	public List<InternEvaluationEntity> findAll() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Optional<SkillEntity> findOne(Long id) {
+	public Optional<InternEvaluationEntity> findOne(Long id) {
 		// TODO Auto-generated method stub
 		return Optional.empty();
 	}

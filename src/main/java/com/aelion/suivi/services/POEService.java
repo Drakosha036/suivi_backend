@@ -10,11 +10,13 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 
 import com.aelion.suivi.dto.POEShortListDto;
 import com.aelion.suivi.entities.POEEntity;
 import com.aelion.suivi.repositories.POERepository;
 import com.aelion.suivi.services.exception.NotFoundException;
+import com.aelion.suivi.services.exception.NotPermittedException;
 
 /**
  * @author Aelion
@@ -44,10 +46,7 @@ public class POEService implements ICrud<POEEntity>{
 		
 	}
 
-	@Override
-	public void delete(POEEntity t) {
-		this.poeRepository.delete(t);
-	}
+	
 
 	@Override
 	public List<POEEntity> findAll() {
@@ -72,7 +71,7 @@ public class POEService implements ICrud<POEEntity>{
 	}
 
 	@Override
-	public void delete(Long id) throws Exception { //throws Exception c'est la classe generic, donc on peut throws Exception ou NotFoundException, c'est pareil
+	public ResponseEntity<?> delete(Long id) throws Exception { //throws Exception c'est la classe generic, donc on peut throws Exception ou NotFoundException, c'est pareil
 		Optional<POEEntity> oEntity = this.findOne(id);
 		if (oEntity.isPresent()) {
 			try {
@@ -83,7 +82,7 @@ public class POEService implements ICrud<POEEntity>{
 		} else {
 			throw new NotFoundException("POE with id : " + id + " was not found!");
 		}
-		
+		return null;
 		//this.poeRepository.deleteById(id);
 		
 		/* casting Long to int
@@ -102,6 +101,15 @@ public class POEService implements ICrud<POEEntity>{
 		}
 		return dto;
 	}
+
+	@Override
+	public ResponseEntity<?> delete(POEEntity t) throws NotPermittedException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
+
 	
 
 }

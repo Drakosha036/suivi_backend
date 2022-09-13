@@ -27,27 +27,8 @@ public class POETypeEntity {
 	
 	@Column(length=50)
 	private String title;
-	
-	//relation enverse a utiliser avec grand precausion
-	@OneToMany()
-	private List<POEEntity> poes = new ArrayList<>(); //instancier pour que poes devient un objet, pour eviter NUllPointerException 
 
-	/**
-	 * @return the poes
-	 */
-	public List<POEEntity> getPoes() {
-		return poes;
-	}
-	
-	//ajouter poe a ce list de poes
-	public void addPoe(POEEntity poeEntity) {
-		this.poes.add(poeEntity);
-	}
-	
-	//delete poe de ce List de poes
-	public void removePoe(POEEntity poeEntity) {
-		this.poes.remove(poeEntity);
-	}
+
 
 	/**
 	 * @return the title
