@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.aelion.suivi.dto.InternInputDto;
 import com.aelion.suivi.dto.InternShortListDto;
 import com.aelion.suivi.entities.InternEntity;
 import com.aelion.suivi.services.InternService;
@@ -37,6 +38,7 @@ public class InternController {
 	private InternService internService;
 
 	@GetMapping("/hello")
+	@CrossOrigin
 	//*ResponseEntity est une classe avec le type de retour string*/
 	public ResponseEntity<String> greetings() {
 		//retourne la methode ok de la clase
@@ -50,6 +52,7 @@ public class InternController {
 	}
 
 	@GetMapping("/shortlist")
+	@CrossOrigin
 	public List<InternShortListDto> shortList() {
 		return this.internService.shortList(); //ca retourne la liste de InternShortListDto ce qu'on attend
 	}
@@ -78,8 +81,9 @@ public class InternController {
 	 * @return doit returner status - 201 http status de creation successful
 	 */
 	@PostMapping()
-	public InternEntity add(@RequestBody InternEntity intern) { //grace au requestbody on recuper lecontenu de la requete
-		return this.internService.add(intern);
+	@CrossOrigin
+	public InternEntity add(@RequestBody InternInputDto intern) { //grace au requestbody on recuper lecontenu de la requete
+		return this.internService.addInternAndPoes(intern);
 	}
 	
 	
@@ -102,6 +106,7 @@ public class InternController {
 	}
 	
 	@PutMapping()
+	@CrossOrigin
 	public ResponseEntity<?> update(@RequestBody InternEntity intern) {
 		this.internService.update(intern);
 		return ResponseEntity.noContent().build(); //pas de contenu, donc on retourne la reponse sans contenu
@@ -109,30 +114,42 @@ public class InternController {
 	
 	
 	@GetMapping("/asiterable")
+	@CrossOrigin
 	public Iterable<InternEntity> findAll() {
 		return this.internService.internsAsIterable();
 	}
 	
 	@GetMapping("/byname/{name}")
+	@CrossOrigin
 	public List<InternEntity> findByName(@PathVariable String name) {
 		System.out.println(name);
 		return this.internService.findByName(name);
 	}
 	
 	@GetMapping("/byfirstname/{firstName}") 
+	@CrossOrigin
 	public List<InternEntity> findByFirstName(@PathVariable String firstName) {
 		System.out.println(firstName);
 		return this.internService.findByFirstName(firstName);
 	}
 	
-	@GetMapping("/byemail")
-	public ResponseEntity<?> internByMail(@RequestParam() String email) {
-		Optional<InternEntity> entity = this.internService.internByMail(email);
-		if (entity.isPresent()) {
-			return ResponseEntity.ok(entity.get());
-		}
-		return  ResponseEntity.notFound().build();
-	}
+	//@GetMapping("/byemail")
+	//@CrossOrigin
+	//public ResponseEntity<?> internByMail(@RequestParam() String email) {
+		//Optional<InternEntity> entity = this.internService.internByMail(email);
+		//if (entity.isPresent()) {
+		//	return ResponseEntity.ok(entity.get());
+		//}
+		//return  ResponseEntity.notFound().build();
+		
+		//return this.internService.byEmail(email);
+	//}
 	
+	
+	@GetMapping("/byemail")
+	@CrossOrigin
+	public ResponseEntity<?> byEmail(@RequestParam() String email) {
+	return this.internService.byEmail(email);
+	}
 	
 }

@@ -37,6 +37,7 @@ public class InternEntity {
 	private String address;
 	
 	//fait reference a un attribut intern de InternEvaluation
+	//pour acceder a cette table depuis le frontend?
 	@OneToMany(mappedBy="intern") //recup les evaluations de cet intern
 	private List<InternEvaluationEntity> evaluations = new ArrayList<>();
 	

@@ -8,12 +8,16 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.aelion.suivi.dto.InternInputDto;
 import com.aelion.suivi.dto.InternShortListDto;
 import com.aelion.suivi.entities.InternEntity;
+import com.aelion.suivi.entities.POEEntity;
 import com.aelion.suivi.repositories.InternRepository;
+import com.aelion.suivi.repositories.POERepository;
 import com.aelion.suivi.services.exception.NotPermittedException;
 
 /**
@@ -28,6 +32,10 @@ public class InternService implements ICrud<InternEntity> {
 	
 	@Autowired //DI
 	private InternRepository internRepository; //spring instancie l'objet au moment d'execution
+	
+	
+	@Autowired
+	private POERepository poeRepository;
 	
 	/**
 	 * INSERT INTO intern (name, firstname, ..., address) VALUES (...)
@@ -113,8 +121,44 @@ public class InternService implements ICrud<InternEntity> {
 		return this.internRepository.findByFirstName(firstName);
 	}
 	
-	public Optional<InternEntity> internByMail(String email) {
-		return this.internRepository.internByMail(email);
+	//public Optional<InternEntity> internByMail(String email) {
+	//	return this.internRepository.internByMail(email);
+	//}
+	
+	public ResponseEntity<?> byEmail(String email) {
+		ResponseEntity response = null;
+		InternEntity entity = this.internRepository.internByMail(email);
+		
+		if (entity == null) {
+			return new ResponseEntity(HttpStatus.OK);
+		}
+		
+		return new ResponseEntity(HttpStatus.FORBIDDEN);
+	}
+
+	public InternEntity addInternAndPoes(InternInputDto internDto) {
+		InternEntity intern = new InternEntity();
+		intern.setAddress(internDto.address);
+		intern.setBirthdate(internDto.birthDate);
+		intern.setEmail(internDto.email);
+		intern.setFirstName(internDto.firstName);
+		intern.setName(internDto.name);
+		intern.setPhoneNumber(internDto.phoneNumber);
+		
+		//Persist intern
+		this.internRepository.save(intern);
+		
+		//Persist POEs with the new Intern
+		internDto.poes.forEach(inputPoe -> {
+			//chercher intern dans le POE
+				Optional<POEEntity> oPoe = this.poeRepository.findById(inputPoe.getId());
+				if (oPoe.isPresent()) {
+					POEEntity poe = oPoe.get();
+					poe.addIntern(intern);
+					this.poeRepository.save(poe);
+				}
+			});
+		return intern;
 	}
 	
 	/*

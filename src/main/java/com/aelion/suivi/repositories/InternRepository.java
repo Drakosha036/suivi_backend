@@ -43,9 +43,28 @@ public interface InternRepository extends CrudRepository<InternEntity, Long> {
 	public List<InternEntity> findByFirstName(String firstName);
 
 	//parametre nomme: ':email'
-	@Query("SELECT i FROM InternEntity i WHERE i.email = :email") //passe JPQL requete
+	/*
+	 * JPQL
+	 * On travail avec les attributs et les entites
+	 * @param email
+	 * @return 
+	 * */
+	//@Query("SELECT i FROM InternEntity i WHERE i.email = :email") //passe JPQL requete
 	//@Param("email") lie le nom de Param et le nom de QL
-	public Optional<InternEntity> internByMail(@Param("email") String email); //parce que mail est unique; il n'y a pas de List<InternEntity>
+	//public Optional<InternEntity> internByMail(@Param("email") String email); //parce que mail est unique; il n'y a pas de List<InternEntity>
 	
+	
+	@Query("SELECT i FROM InternEntity i WHERE i.email = :email")
+	public InternEntity internByMail(@Param("email") String email);
+	
+	
+	/** 
+	 * Native on travaille avec le nom des tables et les colonnes
+	 * @param mail
+	 * @return
+	 */
+	
+	@Query(value="SELECT * FROM intern WHERE email = :email", nativeQuery=true)
+	public InternEntity nativeInternByMail(@Param("email") String mail);
 	
 }

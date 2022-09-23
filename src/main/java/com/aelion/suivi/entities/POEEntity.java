@@ -46,6 +46,10 @@ public class POEEntity {
 		return interns;
 	}
 
+	public void addIntern(InternEntity intern) {
+		interns.add(intern);
+	}
+	
 	/**
 	 * @param interns the interns to set
 	 */

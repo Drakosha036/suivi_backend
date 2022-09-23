@@ -29,10 +29,6 @@ public class SkillEntity {
 	private String title;
 	private String description;
 	
-	//fait reference a un attribut skill de InternEvaluation
-	//@OneToMany(mappedBy="skill") //recup les evaluation de cette competence
-	//private List<InternEvaluationEntity> evaluations = new ArrayList<>();
-	
 	/**
 	 * @return the title
 	 */
