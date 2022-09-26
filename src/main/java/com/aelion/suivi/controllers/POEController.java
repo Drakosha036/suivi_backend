@@ -27,6 +27,7 @@ import com.aelion.suivi.services.exception.NotFoundException;
  * @author Aelion
  *
  */
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/poe") //le racine des routes
 public class POEController {
@@ -36,13 +37,11 @@ public class POEController {
 	
 	
 	@GetMapping()
-	@CrossOrigin
 	public List<POEEntity> getAll() {
 		return this.poeService.findAll();	
 	}
 	
 	@GetMapping("/shortpoe")
-	@CrossOrigin
 	public List<POEShortListDto> shortPOE() {
 		return this.poeService.shortListPOE();
 	}
@@ -63,7 +62,6 @@ public class POEController {
 	*/
 	
 	@GetMapping("/{id}")
-	@CrossOrigin
 	public ResponseEntity<?> findOne(@PathVariable Long id) throws Exception {
 		try { 
 			//on essaye d'executer ce code

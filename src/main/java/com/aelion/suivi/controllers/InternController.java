@@ -29,6 +29,7 @@ import com.aelion.suivi.services.exception.NotPermittedException;
  * @author Aelion
  *
  */
+@CrossOrigin("*")
 @RestController	//decorateur por que la classe devient le controlleur
 @RequestMapping("/intern") //chemin uri
 public class InternController {
@@ -38,7 +39,6 @@ public class InternController {
 	private InternService internService;
 
 	@GetMapping("/hello")
-	@CrossOrigin
 	//*ResponseEntity est une classe avec le type de retour string*/
 	public ResponseEntity<String> greetings() {
 		//retourne la methode ok de la clase
@@ -46,13 +46,11 @@ public class InternController {
 	}
 	
 	@GetMapping()
-	@CrossOrigin
 	public List<InternEntity> getAll() {
 		return this.internService.findAll(); //returned as JSON
 	}
 
 	@GetMapping("/shortlist")
-	@CrossOrigin
 	public List<InternShortListDto> shortList() {
 		return this.internService.shortList(); //ca retourne la liste de InternShortListDto ce qu'on attend
 	}
@@ -62,7 +60,6 @@ public class InternController {
 	//route "/valeur"
 	//appel a methode du service
 	@GetMapping("/{id}")
-	@CrossOrigin
 	//a la place de Optional ici on va envoyer ResponseEntity<?>
 	//pour enoyer le status
 	public ResponseEntity<?> getOne(@PathVariable Long id) { //comment route va etre traite
@@ -81,14 +78,12 @@ public class InternController {
 	 * @return doit returner status - 201 http status de creation successful
 	 */
 	@PostMapping()
-	@CrossOrigin
 	public InternEntity add(@RequestBody InternInputDto intern) { //grace au requestbody on recuper lecontenu de la requete
 		return this.internService.addInternAndPoes(intern);
 	}
 	
 	
 	@DeleteMapping()
-	@CrossOrigin
 	//ResponseEntity<?> on sait pas quel type on va renvoyer
 	public ResponseEntity<?> delete(@RequestBody InternEntity intern) { //n'oublier pas @RequestBody
 		try {
@@ -106,7 +101,6 @@ public class InternController {
 	}
 	
 	@PutMapping()
-	@CrossOrigin
 	public ResponseEntity<?> update(@RequestBody InternEntity intern) {
 		this.internService.update(intern);
 		return ResponseEntity.noContent().build(); //pas de contenu, donc on retourne la reponse sans contenu
@@ -114,27 +108,23 @@ public class InternController {
 	
 	
 	@GetMapping("/asiterable")
-	@CrossOrigin
 	public Iterable<InternEntity> findAll() {
 		return this.internService.internsAsIterable();
 	}
 	
 	@GetMapping("/byname/{name}")
-	@CrossOrigin
 	public List<InternEntity> findByName(@PathVariable String name) {
 		System.out.println(name);
 		return this.internService.findByName(name);
 	}
 	
 	@GetMapping("/byfirstname/{firstName}") 
-	@CrossOrigin
 	public List<InternEntity> findByFirstName(@PathVariable String firstName) {
 		System.out.println(firstName);
 		return this.internService.findByFirstName(firstName);
 	}
 	
 	//@GetMapping("/byemail")
-	//@CrossOrigin
 	//public ResponseEntity<?> internByMail(@RequestParam() String email) {
 		//Optional<InternEntity> entity = this.internService.internByMail(email);
 		//if (entity.isPresent()) {
@@ -147,7 +137,6 @@ public class InternController {
 	
 	
 	@GetMapping("/byemail")
-	@CrossOrigin
 	public ResponseEntity<?> byEmail(@RequestParam() String email) {
 	return this.internService.byEmail(email);
 	}
